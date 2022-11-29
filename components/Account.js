@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useTheme, Text } from '@nextui-org/react';
 
 import Avatar from './Avatar'
 import NavBar from './NavBar'
@@ -9,6 +10,7 @@ import Tabs from './Tabs'
 export default function Account({ session }) {
   const supabase = useSupabaseClient()
   const user = useUser()
+  const { theme } = useTheme()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
@@ -81,6 +83,15 @@ export default function Account({ session }) {
         updateProfile({ username, website, avatar_url: url })
       }}
     />
+    <p
+        style={{
+          color: theme.colors.primary.value,
+          fontSize: theme.fontSizes.sm.value,
+          padding: `${theme.space[2].value} ${theme.space[4].value}`
+        }}
+      >
+        Profile
+      </p>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
